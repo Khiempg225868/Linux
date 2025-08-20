@@ -108,7 +108,7 @@ Quá trình chứng thực diễn ra như sau:
 Trước tiên ta tạo key trên máy client. Sử dụng lệnh
 `ssh-keygen`
 
-![](./images/ssh1.png)
+![](../images/ssh1.png)
 
 Ta thấy khi tạo key nó hỏi ta chỗ lưu file. Bạn có thể chọn chỗ lưu nhưng thường sẽ để mặc định bằng cách nhấn `enter`
 Và sẽ được hỏi `passphrase` bạn có thể nhập hoặc không để bảo vệ private key của bạn. Nếu bạn nhập thì hãy nhớ mật khẩu này.
@@ -123,7 +123,7 @@ Và sẽ được hỏi `passphrase` bạn có thể nhập hoặc không để 
   Đây là một số option thông dụng để biết thêm các option khác ta sử dụng lệnh `ssh-keygen --help`
   Ta kiểm tra bằng cách cd vào thư mục `.ssh` và kiểm tra trong xem đã có file chưa.
 
-![](./images/ssh4.png)
+![](../images/ssh4.png)
 
 Trong thư mục này chúng ta quan tâm đến 2 file đó là `id_rsa` là file chưa private key và file `id_rsa.pub` là file chứa public key.
 Tiếp theo ta cần đưa public key lên server ta muốn kết nối ssh. Có 2 cách để ta đưa public key lên trên server.
@@ -136,7 +136,7 @@ Cách thủ công: Ta đăng nhập vòa server mà cụ thể là đăng nhập
   Cách khác là ta sử dụng lệnh `ssh-copy-id -i .ssh/id_rsa.pub user@địa_chỉ`
 - Cách này ta phải đảm bảo rằng ta có thể ssh vào user trên máy mà ta muốn ssh vào bằng cách sử dụng password.
 
-![](./images/ssh5.png)
+![](../images/ssh5.png)
 
 - Với cách này thì hệ thống sẽ tự tao thư mục `.ssh` và file `authorized_keys` trên máy server. Nó sẽ đặt thư mục này trong thư mục của user đó.
 
@@ -149,14 +149,14 @@ Ta cần sửa một số thông số sau:
 - `PubkeyAuthentication yes`
 - `AuthorizedKeysFile .ssh/authorized_keys`
 
-![](./images/ssh6.png)
+![](../images/ssh6.png)
 
 Sau đó restart lại SSH
 Để đảm bảo tính bảo mật hơn bằng việc kết nối SSH ta có thể thiết lập để chỉ cho phép SSH bằng key chứ ko cho SSH bằng pass. Để làm điều này ta cũng vào file `/etc/ssh/sshd_config` để tìm và sửa thông số sau:
 
 - `PasswordAuthentication no`
 
-![](./images/ssh7.png)
+![](../images/ssh7.png)
 
 Sau đó restart lại SSH
 Như đã biết thì tài khoản `root` trong linux có đặc quyền cao nhất. Nếu để mất tài khoản này vào tay người khác thì gần như chấm hết. Vì vậy cách tốt nhất là không cho SSH truy cập vào tài khoản `root` và nếu cần thì switch sang `root` bằng lệnh `su` khi cần thiết.
@@ -166,12 +166,12 @@ Như đã biết thì tài khoản `root` trong linux có đặc quyền cao nh�
   Sau đó sửa lại thành:
 - `PermitRootLogin no`
 
-![](./images/ssh8.png)
+![](../images/ssh8.png)
 
 Sau đó restart lại SSH
 Bây giờ ta không thể SSH vào máy bằng tài khoản `root` được nữa.
 
-![](./images/ssh9.png)
+![](../images/ssh9.png)
 
 Ta cũng có thể giới hạn những user có thể login SSH vào hệ thống bằng cách vào file `/etc/ssh/sshd_config` tìm dòng `AllowUsers` và thêm những user bạn cho phép dùng SSH để login vào.
 Ví dụ ở đâu tôi chỉ cho user `client1` và `client2` dùng ssh để login vào hệ thống thì tôi thêm như sau: `AllowUsers client1 client2`
@@ -182,11 +182,11 @@ Trong đó:
 - `file_private_key` là file chứa key private mà ta muốn tạo một public key từ key đó.
 - `file_public_key ` là file mà ta sẽ lưu public key mới tạo ra.
 
-![](./images/ssh01.png)
+![](../images/ssh01.png)
 
 Như ví dụ trên tôi đã tạo ra một public key nữa và tôi đặt nó trong file `id_rsa1.pub`
 
-![](./images/ssh02.png)
+![](../images/ssh02.png)
 
 Chúng ta có thể thấy rằng 1 private key có thể sinh ra rất nhiều các public key. Và các public key này là khác nhau nhưng vẫn sẽ được giải mã bằng private key mà chúng được sinh ra.
 

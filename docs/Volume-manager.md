@@ -38,7 +38,7 @@
 `Group Volume` Là một nhóm tập hợp nhiều Physica Volume, dung lượng tổng được sử dụng để tạo ra các Logical Volume.
 `Logical Volume` có thể xam là các "phân vùng ảo" trên "ổ đĩa ảo" ta có thể thêm vào gỡ bỏ và thay đổi kích thước một cách nhanh chóng.
 
-![](./images/LVM1.png)
+![](../images/LVM1.png)
 
 <a name="uudiem">
 
@@ -66,19 +66,19 @@
 
 Trước tiên kiểm tra `Hard Drives` có trên hệ thống bằng lệnh `lsblk`
 
-![](./images/LVM2.png)
+![](../images/LVM2.png)
 
 Từ các Hard drives trên hệ thống, ta tạo ra các partition. Sử dụng lệnh `fdisk`
 
-![](./images/LVM3.png)
+![](../images/LVM3.png)
 
 Tiếp theo thay đổi định dạng của partition vùa tạo thành `Linux LVM`
 
-![](./images/LVM4.png)
+![](../images/LVM4.png)
 
 Tương tự tạo các partition primary từ các disk còn lại.
 
-![](./images/LVM5.png)
+![](../images/LVM5.png)
 
 <a name="taophysicalvolume">
 
@@ -87,11 +87,11 @@ Tương tự tạo các partition primary từ các disk còn lại.
 Tạo `Physical Volume` bằng lệnh `pvcreate`
 VD ở đây ta tạo 2 Physical volume là `/dev/sdb1` và `/dev/sdc1`
 
-![](./images/LVM6.png)
+![](../images/LVM6.png)
 
 Kiểm tra danh sách các Physical Volume bằng lệnh `pvs` hoặc `pvdisplay`
 
-![](./images/LVM7.png)
+![](../images/LVM7.png)
 
 <a name="taogroupvolume">
 
@@ -101,11 +101,11 @@ Tạo `Group volume` bằng lệnh `vgcreate`
 Ở đây ta nhóm các Physical volume vừa tạo ở trên thành 1 Group Volume
 Cú pháp `vgcreate tên_group_volume Physical_volume1 Physical_volume2 Physical_volume3 ..`
 
-![](./images/LVM8.png)
+![](../images/LVM8.png)
 
 Sử dụng câu lệnh `vgs` hoặc `vgdisplay` để kiểm tra lại Volume Group vừa tạo
 
-![](./images/LVM9.png)
+![](../images/LVM9.png)
 
 <a name="taologicalvolume">
 
@@ -116,11 +116,11 @@ Cú pháp `lvcreate -L size_volume -n tên_logical_volume tên_group_volume`
 VD ta tạo 1 logical volume có dung lượng `2G` tên là `l_volume` từ group volume `g_volume` vừa tạo ở trên
 `lvcreate -L 2G -n l_volume g_volume`
 
-![](./images/LVM10.png)
+![](../images/LVM10.png)
 
 Sử dụng lệnh `lvs` hoặc `lvdisplay` để kiểm tra các Logical Volume đã tạo
 
-![](./images/LVM11.png)
+![](../images/LVM11.png)
 
 <a name="dinhdanglogicalvolume">
 
@@ -128,11 +128,11 @@ Sử dụng lệnh `lvs` hoặc `lvdisplay` để kiểm tra các Logical Volume
 
 Để format các Logical Volume thành các định dạng như ext2, ext3, ext4 ta thực hiện như với partition
 
-![](./images/LVM12.png)
+![](../images/LVM12.png)
 
 Bây giờ ta chỉ việc `Mount` nó vào thư mục và sử dụng bình thường
 
-![](./images/LVM13.png)
+![](../images/LVM13.png)
 
 <a name="thaydoidungluonglogicalvolume">
 
@@ -146,23 +146,23 @@ Phần này ta tìm hiểu cách thay đổi dung lượng của Logical volume 
 _Lưu ý_ trước khi thay đổi ta cần kiểm tra lại thông tin hiện có bằng các lệnh `pvs` `vgs` `lvs`
 Cần lưu ý rằng nếu muốn tăng kích thước của 1 logical volume thì group volume chứa logical volume đó còn dư dung lượng và chưa cấp phát cho logical volume khác.
 
-![](./images/LVM14.png)
+![](../images/LVM14.png)
 
 Ta thấy ở đây dung lượng còn dư để có thể tăng cho các logical volume trong group này là 5,99G
 Để tăng kích thước của Logical Volume ta dùng lệnh
 `lvextend -L +size tên_logical_volume`
 Vd ở đây ta tăng dung lượng `1G` cho logical volume `l_volume` nằm trong group volume `g_volume`
 
-![](./images/LVM15.png)
+![](../images/LVM15.png)
 
 Kiểm tra lại dùng lệnh `lvs`
 
-![](./images/LVM16.png)
+![](../images/LVM16.png)
 
 Sau khi tăng kích thước cho Logical volume thì Logical volume đã được tăng. Để cập nhật thay đổi và có thể sử dụng ta dùng lệnh `resize2fs`
 Cụ thể trong trường hợp này ta dùng lệnh `resize2fs /dev/g_volume/l_volume`
 
-![](./images/LVM17.png)
+![](../images/LVM17.png)
 
 Bây giờ ta đã thấy sự thay đổi
 <a name="giamdungluong">
@@ -174,14 +174,14 @@ Trước tiên để giảm kích thước của Logical Volume ta phải umount
 Tiến hành giảm kích thước của Logical Volume
 `lvreduce -L 0.5G /dev/g_volume/l_volume`
 
-![](./images/LVM18.png)
+![](../images/LVM18.png)
 
 Tiến hành format lại Logical volume
 `mkfs -t ext4 /dev/g_volume/l_volume`
 Cuối cùng mount lại Logical volume
 `mount /dev/g_volume/l_volume test_volume`
 
-![](./images/LVM19.png)
+![](../images/LVM19.png)
 
 <a name="thaydoidungluongvolumegroup">
 
@@ -191,7 +191,7 @@ Trong phần này chúng ta sẽ tìm hiểu cách để mở rông và thu hồ
 Việc thay đổi kích thước của volume group chính là việc thêm Physical volume hay thu hồi Physical volume ra khổi Volume Group
 Trước tiên cần kiểm tra lại partition và Volume group
 
-![](./images/LVM20.png)
+![](../images/LVM20.png)
 
 <a name="thempartition">
 
@@ -200,7 +200,7 @@ Trước tiên cần kiểm tra lại partition và Volume group
 Tiếp theo, nhóm thêm 1 partiton vào Volume Group
 `vgextend /dev/g_volume /dev/sdb2`
 
-![](./images/LVM21.png)
+![](../images/LVM21.png)
 
 <a name="botpartition">
 
@@ -208,7 +208,7 @@ Tiếp theo, nhóm thêm 1 partiton vào Volume Group
 
 `vgreduce /dev/g_volume /dev/sdb2`
 
-![](./images/LVM22.png)
+![](../images/LVM22.png)
 
 <a name="xoalogicalgroupphysical">
 
@@ -221,7 +221,7 @@ Tiếp theo, nhóm thêm 1 partiton vào Volume Group
 Trước tiên phải `umount` logical volume
 Sau đó tiến hành xóa logical volume bằng câu lệnh `lvremove`
 
-![](./images/LVM23.png)
+![](../images/LVM23.png)
 
 <a name="xoavolumegroup">
 
@@ -230,7 +230,7 @@ Sau đó tiến hành xóa logical volume bằng câu lệnh `lvremove`
 Trước khi xóa Volume Group ta phải xóa tất cả các Logical Volume trong group đó
 Để xóa Volume Group ta dùng lệnh `vgremove`
 
-![](./images/LVM24.png)
+![](../images/LVM24.png)
 
 <a name="xoaphysicalvolume">
 
@@ -239,4 +239,4 @@ Trước khi xóa Volume Group ta phải xóa tất cả các Logical Volume tro
 Cuối cùng là xóa Physical Volume
 Dùng lệnh `pvremove`
 
-![](./images/LVM25.png)
+![](../images/LVM25.png)

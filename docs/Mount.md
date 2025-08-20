@@ -16,25 +16,25 @@ Trong đó:
   VD: Tôi muốn tiến hành `mount` phân vùng `/dev/sdb1` của ổ `sdb` vào thư `/root/test`. Vì thư mục này tôi đã tiến hành format từ trước nên tôi không cần đinh dạng khi tiến hành `mount`
   Lệnh: `mount /dev/sdb1 /root/test`. Sau kho `mount` xong ta có thể dùng lệnh `lsblk` để thấy được thiết bị đó đã có điểm mount.
 
-![](./images/mo1.png)
+![](../images/mo1.png)
 
 Bây giờ khi ta thao tác với thư mục `test` thì tất cả các dữ liệu ta ghi lên sẽ ghi lên thiết bị ta gán vào và khi ta tháo đĩa thiết bị đó ra mang đi nơi khác ta vẫn có thể đọc được dữ liệu đó.
 Khi không dùng ta có ngắt kết nối thiết bị với thư mục bằng cách dùng lệnh `umount`
 Có 2 cách để `umount` thiết bị. Ta có thể dùng lệnh `umount đường_dẫn_thiết_bị` hoặc `umount điểm_mount`
 
-![](./images/mo2.png)
+![](../images/mo2.png)
 
 ### 2. Mount tự động
 
 Với cách này ta chỉ cần thực hiện một lần khi reboot ta cũng ko cần phải thực hiện mount lại.
 Với cách `mount` này ta sẽ thực hiện nó trong file `/etc/fstab`. File `fstab` là một bảng lưu trữ thông tin về các thiết bị, mount point và các thiết lập của nó. Khi khởi động hệ thống sẽ đọc file này và tiến hành mount tự động thiết bị.
 
-![](./images/mo3.png)
+![](../images/mo3.png)
 
 `Cột 1`: Lưu tên thiết bị (UUID) hoặc đường dẫn tới file thiết bị trong thư mục `/dev`.
 Để biết `UUID` của thiết bị ta có thể dùng lệnh `blkid`
 
-![](./images/mo4.png)
+![](../images/mo4.png)
 
 Nhưng thông thường ta dùng đường dẫn tới file cho đỡ dài và dễ hiểu hơn.
 `Cột 2`: Cho biết điểm mount
@@ -57,10 +57,10 @@ Nhưng thông thường ta dùng đường dẫn tới file cho đỡ dài và d
 
 Để làm việc với file `/etc/fstab` ta có thể sử dụng bất kỳ trình soạn thảo nào có trên máy. Đây tôi dùng `vi`. Lệnh `vi /etc/fstab`
 
-![](./images/mo5.png)
+![](../images/mo5.png)
 
 Sau khi thực hiện xong chúng ta lưu lại. Sau đó reboot lại máy và kiểm tra xem đã mount thành công chưa bằng cách dùng lệnh `df -h`
 
-![](./images/mo6.png)
+![](../images/mo6.png)
 
 Khi ta để tự động mount mỗi lần reboot mỗi khi reboot nó sẽ tự động mount cho ta. Khi muốn umount tạm thời ta vẫn có thể dùng lệnh `umount` bình thường nhưng khi reboot lại thì thiết bị lại được mount lại.

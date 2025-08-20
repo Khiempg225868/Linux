@@ -34,42 +34,42 @@ Trong thông tin do `ps` trả về,
 
 Với options `-A` và `-e` sẽ trả về cho ta kết quả giồng nhau
 
-![](./images/ps1.png)
+![](../images/ps1.png)
 
 Để xem được nhiều hơn thông tin về tiến trình ta có thể sử dụng thêm options `-f`(full format) hoặc `-F`(extra full format)
 
-![](./images/ps2.png)
+![](../images/ps2.png)
 
 Hiển thị tiến trình của một người dùng. Ta có thể lọc ra các tiến trình mà user nào đó đang sở hữu. Ta sử dụng option `-u` và sau đó là tên user muốn hiển thị. Ta cũng có thể liệt kê ra cùng lúc nhiều user bằng cách sử dụng dấu `,` để ngăn cách giữa các user.
 
-![](./images/ps3.png)
+![](../images/ps3.png)
 
 Hiển thị process theo PID và PPID. Ta có thể sử dụng option `-p` để hiển thị prosess theo `PID` mà ta cần tìm kiếm. Dùng lệnh `ps -fp PID_của_process` ta có thể tìm kiếm một lúc nhiều PID bằng các nhập vào một lúc nhiều PID và ngăn các nhau bởi dấu cách.
 
-![](./images/ps4.png)
+![](../images/ps4.png)
 
 Ta cũng có thể để hiển thị các process có một `PPID` nào đó ta dùng tùy chọn `--ppid`. Câu lệnh
 `ps -f --ppid PPID_cần_hiển_thị`
 
-![](./images/ps5.png)
+![](../images/ps5.png)
 
 Lệnh `ps` cũng cho phép ta hiển thị ra các tiến trình có câu lệnh được chỉ ra. Ta sử dụng option `-C`. Dùng lệnh `ps -fC tên_lệnh`
 
-![](./images/ps6.png)
+![](../images/ps6.png)
 
 Lệnh `ps` này cũng cho phép ta chỉ định những kết quả trả về màn hình với option `-o`
 
 - VD ở đây ta chỉ muốn kết quả hiển thị `UID` `PID` `TTY` và `TIME` ta dử dụng lệnh sau
 
-![](./images/ps7.png)
+![](../images/ps7.png)
 
 Ta cũng có thể dùng thêm các tùy chọn khác
 
-![](./images/ps9.png)
+![](../images/ps9.png)
 
 Option `--forest` trả về kết quả theo dạng cây sẽ dễ dàng cho ta xác định mối quan hệ(tiến trình mẹ) giữa chúng
 
-![](./images/ps10.png)
+![](../images/ps10.png)
 
 Ta có thể xem thời gian tiến trình đã chạy bằng cách ở phần định dạng kết quả trả về ta truyền thêm vào đối số `etime`
 
@@ -79,4 +79,4 @@ Trong bất kỳ hệ điều hành nào có đôi lúc chúng ta gặp phải t
 Để đóng một chương trình ta cần phải kiểm tra xem `PID` của nó là gì. Để kiểm tra `PID` của một câu lệnh đang chạy ta sử dụng lệnh `ps` và các options phù hợp như đã tìm hiểu ở phần trên
 Cú pháp `kill PID`
 
-![](./images/ps1.1.png)
+![](../images/ps1.1.png)

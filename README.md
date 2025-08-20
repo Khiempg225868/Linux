@@ -19,3 +19,7 @@
 17. [Dịch vụ NFS](docs/Network-file-system.md)
 18. [iSCSI](docs/iSCSI.md)
 19. [Giao thức SSH và bảo mật với user](docs/Security.md)
+20. [Đối password user](docs/passwd.md)
+21. [Các lệnh xử lý với file text](docs/Text-commands.md)
+22. [Moniter với lệnh sar](docs/Sar.md)
+23. [Bash shell](docs/Bash-programming.md)

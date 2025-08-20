@@ -6,11 +6,11 @@ Trước tiên cần hiểu LVM linear và striped là gì. Hiểu đơn giản 
 
 - `Linear` nếu ta có dữ liệu 700G muốn lưu vào thư mục vừa rồi thì nó sẽ ghi như sau. Nó sẽ tiến hành ghi dữ liệu vào `disk1` đến khi dung lượng `fisk1` hết nói sẽ tiếp tục ghi sang `disk2` và cứ tiếp tục như thế. Như ví dụ trên nó sẽ ghi vào `disk1` 500G và `disk2` 200G.
 
-![](./images/li01.gif)
+![](../images/li01.gif)
 
 - `Striped`với kiểu này dữ liệu sẽ được chia đều ra các disk cho dù dữ liệu đó chỉ có thể ghi trọn vẹn trong 1 disk. Vd ta có dữ liệu 100G muốn lưu vào thư mục vừa rồi thì nó sẽ lưu vào `disk1` 1G(dung lượng này có thể tùy chỉnh trong lúc tạo striped logical volume) `disk2` 1G nó cứ làm như thế đến `disk5` 1G và nó lại lặp lại `disk1` 1G nó cứ ghi như thế đến khi hết 100G dữ liệu kia thì thôi.
 
-![](./images/li02.gif)
+![](../images/li02.gif)
 
 Như vậy ta có thể nhìn thấy được ưu nhược điểm của từng cách lưu trữ trên.
 
@@ -29,22 +29,22 @@ Trong đó:
 - `tên_logical` là tên của logical volume ta định tạo
 - `tên_group` là tên của goup volume mà nó nằm trong
 
-![](./images/li1.png)
+![](../images/li1.png)
 
 Sau khi tạo xong ta co thể dùng lệnh `lvs` hoặc `lvdisplay` để kiểm tra
 
-![](./images/li2.png)
+![](../images/li2.png)
 
 Để sử dụng được ta cần phải format và mount nó vào thư mục để sử dụng.
 
-![](./images/li3.png)
+![](../images/li3.png)
 
-![](./images/li4.png)
+![](../images/li4.png)
 
 Bây giờ ta đã có thể sử dụng được.
 Ta có thể thông tin của các logical volume và xem nó thuộc kiểu nào. Lệnh `vls --segment`
 
-![](./images/li5.png)
+![](../images/li5.png)
 
 Để xem cách hoạt động của `lvm linear` ta có thể theo dõi sự đọc ghi trên các đĩa. Để làm điều này trước tiên ta cần cài goí `bwm-ng` để có thể giám sát sự hoạt động của ổ đĩa. Để cài đc gói này bạn tiến hành download file `rpm` hoặc `deb` về và tiến hành cài bình thường.
 
@@ -54,11 +54,11 @@ VD linear logical volume của tôi được tạo từ 2 physical volume là `s
 
 Terminal 1 chạy lệnh `dd`
 
-![](./images/li02.png)
+![](../images/li02.png)
 
 Terminal 2 chạy lệnh giám sát
 
-![](./images/li01.png)
+![](../images/li01.png)
 
 Ta thấy chỉ có một phân vùng làm việc là `sdb2`.
 
@@ -72,23 +72,23 @@ Trong đó:
 - `X` là số physical volume ta định lấy
 - `Y` là dung lượng 1 lần nó ghi trên 1 physical volume(giống vd bên trên)
 
-![](./images/li6.png)
+![](../images/li6.png)
 
 Bây giờ ta chỉ cần format và mount và sử dụng
 
-![](./images/li7.png)
+![](../images/li7.png)
 
-![](./images/li8.png)
+![](../images/li8.png)
 
 Ở đây ta cũng có thể giám sát sự làm việc của disk giống như phần trên
 
 Terminal 1 chạy lệnh `dd`
 
-![](./images/str02.png)
+![](../images/str02.png)
 
 Terminal 2 chạy lệnh giám sát
 
-![](./images/str01.png)
+![](../images/str01.png)
 
 Ta thấy ở đây cả 2 phân vùng đều làm việc.
 Ta cũng có thể nhận thấy rằng với việc cùng được ghi vào một lượng dữ liệu như nhau thì với `striped` ghi nhanh hơn `linear`

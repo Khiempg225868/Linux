@@ -2,7 +2,7 @@
 
 Nó hoạt động trên mô hình Client-Server. Ta có thể tưởng tượng thay vì ta đem 1 disk cắm trực tiếp vào 1 máy để chạy và khi cần di chuyển thì ta tháo ra và mang đến máy khác cắm vào. Làm như thế rất bất tiện. Với `iSCSI` thì ta không cần mất công như vậy mà vẫn có thể đáp ứng được điều đó. Ta vẫn có thể làm việc với disk trên server như các disk đó đang thực sự đang nằm trên máy của mình.
 
-![](./images/scsi1.png)
+![](../images/scsi1.png)
 
 ## Một số thuật ngữ
 
@@ -38,44 +38,44 @@ Nó hoạt động trên mô hình Client-Server. Ta có thể tưởng tượng
 Cài đặt target trên server bằng lệnh:
 `yum install targetcli`
 
-![](./images/scsi2.png)
+![](../images/scsi2.png)
 
 Sau đó dùng lệnh `targetcli` để hiện dấu nhắc tương tác với iSCSI
 
-![](./images/scsi3.png)
+![](../images/scsi3.png)
 
 Tiếp theo tiến hành cd vào thư mục bên `backstores/block` hoặc `backsstores/fileio` tùy theo bạn muốn tạo backstores theo kiểu nào.
 
-![](./images/scsi4.png)
+![](../images/scsi4.png)
 
 Tiếp theo tạo một block(có thể là file nếu sử dụng kiểu `fileio`) và chỉ định cho nó dùng thiết bị lưu trữ nào (có thể là disk, partition hoặc là logical volume).
 Cú pháp `create tên_block thiêt_bị`
 Ở đây tôi để tên block là `scsi_server1` còn thiết bị tôi gán cho nó là ổ `/dev/sdb`
 
-![](./images/scsi5.png)
+![](../images/scsi5.png)
 
 Tiếp theo tạo target
 Ở đây chúng ta phải sử dụng tên theo tiêu chuẩn (đã mô tả ở trên). Tên miền ở đây là `test.vn` nhưng trong quy định về đặt tên thì tên miền phải được viết đảo ngược lại.
 
-![](./images/scsi6.png)
+![](../images/scsi6.png)
 
 Tạo `LUN` dưới target. LUN nên sử dụng đối tượng lưu trữ sao lưu được đề cập trước đây `scsi_server1` hoặc ta cũng có thể chỉ ra các đường dẫn tới các thiết bị khác.
 
-![](./images/scsi7.png)
+![](../images/scsi7.png)
 
 Tạo `ACL` để khi client trình bày đúng cái tên này thì nó mới được target chấp nhận kết nối. Khi tạo `ACL` này thì có 1 phần ko đổi là phần trước dấu hai chấm đây là phần tên máy nó cố định như ta đặt từ trước. Phần sau dấu 2 chấm là một mật khẩu riêng những client nào ta muốn cho truy cập vào thì ta mới cho biết.
 
-![](./images/scsi8.png)
+![](../images/scsi8.png)
 
 `LUN 0` ta vừa tạo bên trên đã được map vào ACL ta vừa tạo.
 
 Bây giờ ta có thể cd ra thư mục `/` và kiểm tra bằng lệnh `ls`
 
-![](./images/scsi9.png)
+![](../images/scsi9.png)
 
 Ta lưu nó lại và thế là ta đã cấu hình xong iSCSI trên server
 
-![](./images/scsi10.png)
+![](../images/scsi10.png)
 
 Tiếp theo ta phải bật và khỏi động lại dịch vụ target
 Lệnh:
@@ -83,49 +83,49 @@ Lệnh:
 
 `systemctl enable target.service`
 
-![](./images/scsi13.png)
+![](../images/scsi13.png)
 
 Tắt firewall để client có thể truy cập vào.
 `firewall-cmd --permanent --add-port=3260/tcp`
 
 `firewall-cmd --reload`
 
-![](./images/scsi14.png)
+![](../images/scsi14.png)
 
 ### Trên Client(Initiator)
 
 Cài `iscsi initiator` trên máy client bằng lệnh
 `yum install iscsi-initiator-utils`
 
-![](./images/scsi11.png)
+![](../images/scsi11.png)
 
 Tiến hành sửa file `/etc/iscsi/initiatorname.iscsi` để giống với ACL ta tạo trên server để có thể kết nối đến server.
 
-![](./images/scsi12.png)
+![](../images/scsi12.png)
 
 Sử dụng tiện ích `iscsiadm` để tìm kiếm, đăng nhập, đăng xuất các targets iSCSI.
 Để có được danh sách các target trên server ta thực hiện cú pháp sau:
 `iscsiadm -m discovery -t st -p IP_server`
 Trong ví dụ này server của tôi có địa chỉ IP: 192.168.169.129
 
-![](./images/scsi15.png)
+![](../images/scsi15.png)
 
 Đăng nhập vào target được tìm thấy. Ta có 2 cách để đăng nhập vào
 `iscsiadm -m node -l` cho phép ta đăng nhập vào tất cả target tìm thấy ở trên.
 hoặc `iscsiadm -m node -T tên_target -p IP -l` để đăng nhập vào target của IP ta chỉ định.
 
-![](./images/scsi16.png)
+![](../images/scsi16.png)
 
 Bây giờ ta kiểm tra đã có 1 disk mới được thêm vào
 
-![](./images/scsi17.png)
+![](../images/scsi17.png)
 
 Để sử dụng nó ta tiến hành phân vùng format và mount nó vaò thư mục và sử dụng bình thường như khi ta gán trực tiếp vào máy của ta.
 
-![](./images/scsi18.png)
+![](../images/scsi18.png)
 
 Để logout khỏi iSCSI targets ta cũng có 2 cách để đăng xuất như khi ta đăng nhập vào.
 `iscsiadm -m node -u` để đăng xuất ra khỏi tất cả các target ta đang đăng nhập.
 `iscsiadm -m node -u -T tên_target -p IP` để đăng xuất khỏi một target mà ta chỉ ra.
 
-![](./images/scsi19.png)
+![](../images/scsi19.png)
