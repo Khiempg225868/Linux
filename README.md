@@ -17,3 +17,5 @@
 15. [Volume Manager](docs/Volume-manager.md)
 16. [LVM linear-striped](docs/LVM_linear_striped.md)
 17. [Dịch vụ NFS](docs/Network-file-system.md)
+18. [iSCSI](docs/iSCSI.md)
+19. [Giao thức SSH và bảo mật với user](docs/Security.md)
